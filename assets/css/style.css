@@ -133,16 +133,6 @@ button { font-family: inherit; }
 }
 .btn--light:hover { box-shadow: 0 10px 26px rgba(4, 12, 32, .2); }
 
-.btn--ghost {
-  background: rgba(255, 255, 255, .1);
-  border-color: rgba(255, 255, 255, .28);
-  color: var(--white);
-  padding: 10px 20px;
-  font-size: 13.5px;
-  backdrop-filter: blur(10px);
-}
-.btn--ghost:hover { background: rgba(255, 255, 255, .2); }
-
 .btn--outline-light {
   border-color: rgba(255, 255, 255, .4);
   color: var(--white);
@@ -1219,7 +1209,6 @@ button { font-family: inherit; }
   .brand__logo { width: 40px; height: 40px; }
   .brand__text strong { font-size: 12px; }
   .brand__text small { font-size: 9.5px; }
-  .header__cta { display: none; }
   .nav {
     order: 3;
     width: 100%;
