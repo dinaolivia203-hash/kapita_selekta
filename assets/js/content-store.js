@@ -256,6 +256,7 @@ window.SchoolContent = (function () {
     renderNews(data.news);
     renderCalendar(data.calendar);
     renderAchievements(data.achievements);
+    document.dispatchEvent(new CustomEvent("contentrendered"));
   }
 
   if (document.querySelector("[data-content]")) {

@@ -3,9 +3,10 @@ HEAD
 
 # Website Profil SMK Bintang Nusantara 2
 
-Website profil sekolah (static) dengan navigasi berbasis tab: Beranda, Profil, Jurusan,
-Fasilitas, Galeri, dan Kontak. Setiap menu membuka halamannya sendiri tanpa reload, dan
-Beranda memiliki hero foto yang berganti otomatis.
+Website profil sekolah (static) dengan navigasi berbasis tab: Beranda, Profil, Fasilitas,
+Galeri, Berita Sekolah, Akademik (dropdown: Jurusan, Kalender Akademik, Prestasi), dan
+Kontak. Setiap menu membuka halamannya sendiri tanpa reload, dan Beranda memiliki hero
+foto yang berganti otomatis.
 
 ## Menjalankan
 
@@ -21,10 +22,15 @@ lalu buka `http://localhost:8000`.
 ## Struktur
 
 ```
-index.html               Halaman utama (semua tab ada di file ini)
-assets/css/style.css     Semua tampilan (warna, layout, bagan guru, responsif)
-assets/js/main.js        Navigasi tab, slider foto, animasi, tinggi header
-assets/img/              Logo sekolah + foto kegiatan
+index.html                 Halaman utama (semua tab ada di file ini)
+admin.html                 Panel operator untuk mengelola berita & akademik
+assets/css/style.css       Semua tampilan website (warna, layout, responsif)
+assets/css/admin.css       Tampilan khusus panel admin
+assets/js/content-data.js  Data awal berita, kalender, dan prestasi
+assets/js/content-store.js Penyimpanan localStorage + render konten ke halaman
+assets/js/main.js          Navigasi tab, slider foto, animasi, tinggi header
+assets/js/admin.js         Logika panel admin (login, tambah/edit/hapus, ekspor)
+assets/img/                Logo sekolah + foto kegiatan
 ```
 
 ## Navigasi tab
@@ -35,9 +41,30 @@ assets/img/              Logo sekolah + foto kegiatan
   (fungsi `showTab`), lalu `history.pushState` dipakai agar tombol Back/Forward browser dan
   URL seperti `index.html#galeri` tetap bekerja.
 - Menu utama selalu tampil di semua ukuran layar, tanpa tombol hamburger. Di layar kecil
-  menu menjadi dua baris (3 x 2) di bawah logo.
+  menu menjadi dua baris di bawah logo.
 - Tinggi header diukur otomatis lewat CSS variable `--header-h`, sehingga konten dan hero
   tidak tertutup header.
+
+## Panel admin (berita & akademik)
+
+Buka `admin.html` (atau klik tautan **Admin** di bagian bawah footer).
+
+- Kata sandi awal: **`admin123`**. Ubah melalui tab **Data & Pengaturan** setelah masuk.
+- Tab **Berita Sekolah**: tambah, edit, dan hapus berita. Berita baru tampil paling depan.
+- Tab **Kalender Akademik**: tambah, edit, dan hapus agenda; centang "hari libur" untuk
+  memberi warna khusus.
+- Tab **Prestasi**: tambah, edit, dan hapus prestasi beserta tingkat, tahun, dan ikon.
+- Perubahan langsung terlihat di website (tab lain yang sudah terbuka ikut diperbarui).
+
+**Penyimpanan.** Konten disimpan di `localStorage` browser, bukan di server. Artinya:
+
+- Perubahan hanya terlihat di browser/komputer tempat operator mengedit.
+- Untuk memindahkan konten ke komputer lain, gunakan **Ekspor data** (file JSON), lalu
+  **Impor data** di komputer tujuan.
+- Pengunci kata sandi hanya membatasi tampilan panel, bukan pengamanan server.
+
+Data awal (jika localStorage kosong) ada di `assets/js/content-data.js`. Tombol
+**Reset ke data awal** mengosongkan penyimpanan dan memakai data tersebut.
 
 ## Bagan guru & tenaga kependidikan
 
@@ -72,6 +99,7 @@ guru sebenarnya tersedia.
 
 ## Cara mengubah
 
+- **Berita, kalender akademik, prestasi**: gunakan panel `admin.html` (lihat bagian di atas).
 - **Teks / data**: cari bagian yang sesuai di `index.html` (misalnya `23 siswa`, `NPSN`, alamat).
 - **Nama di bagan guru**: ubah blok `.org` di `index.html` (kartu `.org__leader`,
   `.org__unit`, dan daftar `.org__people`).

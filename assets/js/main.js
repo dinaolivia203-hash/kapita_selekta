@@ -63,6 +63,11 @@
 
   watchReveals(document);
 
+  /* Konten berita/akademik dirender ulang saat data berubah (mis. dari tab admin) */
+  document.addEventListener("contentrendered", function () {
+    watchReveals(document);
+  });
+
   /* ---------------------------------------------------------------------
      3. Slider foto hero
      --------------------------------------------------------------------- */

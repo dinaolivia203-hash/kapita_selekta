@@ -144,6 +144,8 @@
 
 .admin-btn-block { width: 100%; }
 
+.admin-gate__card .admin-btn-block { margin-top: 16px; }
+
 .admin-alert {
   margin: 0;
   padding: 10px 13px;
