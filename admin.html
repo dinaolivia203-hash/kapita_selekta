@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panel Admin — SMK Bintang Nusantara 2</title>
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#081430">
+  <link rel="icon" type="image/png" href="assets/img/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/admin.css">
+</head>
+<body class="admin-body">
+  <a class="skip-link" href="#adminMain">Langsung ke konten</a>
+
+  <!-- ================= GERBANG MASUK ================= -->
+  <div class="admin-gate" id="adminGate">
+    <form class="admin-gate__card" id="loginForm" autocomplete="on">
+      <img class="admin-gate__logo" src="assets/img/logo.png" alt="Logo SMK Bintang Nusantara 2" width="56" height="56">
+      <p class="eyebrow">Panel Operator</p>
+      <h1>Masuk Admin</h1>
+      <p class="admin-gate__lead">Kelola berita sekolah, kalender akademik, dan prestasi.</p>
+
+      <label class="field">
+        <span>Kata sandi</span>
+        <input type="password" id="loginPassword" name="password" placeholder="Masukkan kata sandi" autocomplete="current-password" required>
+      </label>
+
+      <p class="admin-alert" id="loginError" role="alert" hidden>Kata sandi salah. Silakan coba lagi.</p>
+
+      <button class="btn btn--primary admin-btn-block" type="submit">Masuk</button>
+
+      <p class="admin-gate__note">Kata sandi awal: <code>admin123</code>. Ubah melalui menu <strong>Data &amp; Pengaturan</strong> setelah masuk.</p>
+      <a class="link admin-gate__back" href="index.html"><span aria-hidden="true">←</span> Kembali ke website</a>
+    </form>
+  </div>
+
+  <!-- ================= APLIKASI ADMIN ================= -->
+  <div id="adminApp" hidden>
+    <header class="admin-header">
+      <div class="container admin-header__inner">
+        <a class="admin-brand" href="index.html">
+          <img src="assets/img/logo.png" alt="" width="40" height="40">
+          <span>
+            <strong>SMK BINTANG NUSANTARA 2</strong>
+            <small>Panel Operator</small>
+          </span>
+        </a>
+        <div class="admin-header__actions">
+          <a class="btn btn--outline-light" href="index.html">Lihat Website</a>
+          <button class="btn btn--outline-light" type="button" id="logoutBtn">Keluar</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="admin-main" id="adminMain">
+      <div class="container">
+        <header class="admin-intro">
+          <p class="eyebrow">Kelola Konten</p>
+          <h1>Berita &amp; akademik sekolah</h1>
+          <p>Tambahkan, ubah, atau hapus konten yang tampil di tab <strong>Berita Sekolah</strong> dan menu <strong>Akademik</strong>. Perubahan langsung tersimpan di browser ini.</p>
+        </header>
+
+        <div class="admin-tabs" role="tablist" aria-label="Bagian konten">
+          <button class="admin-tab is-active" type="button" role="tab" id="tab-news" aria-selected="true" aria-controls="panel-news" data-tab="news">
+            Berita Sekolah <span class="admin-count" data-count="news">0</span>
+          </button>
+          <button class="admin-tab" type="button" role="tab" id="tab-calendar" aria-selected="false" aria-controls="panel-calendar" data-tab="calendar">
+            Kalender Akademik <span class="admin-count" data-count="calendar">0</span>
+          </button>
+          <button class="admin-tab" type="button" role="tab" id="tab-achievements" aria-selected="false" aria-controls="panel-achievements" data-tab="achievements">
+            Prestasi <span class="admin-count" data-count="achievements">0</span>
+          </button>
+          <button class="admin-tab" type="button" role="tab" id="tab-data" aria-selected="false" aria-controls="panel-data" data-tab="data">
+            Data &amp; Pengaturan
+          </button>
+        </div>
+
+        <!-- ---------- BERITA ---------- -->
+        <section class="admin-panel" id="panel-news" role="tabpanel" aria-labelledby="tab-news">
+          <div class="admin-split">
+            <form class="admin-card admin-form" data-form="news">
+              <div>
+                <h2 data-form-title>Tambah berita</h2>
+                <p class="admin-card__hint">Berita terbaru akan tampil paling depan.</p>
+              </div>
+              <input type="hidden" name="id">
+
+              <label class="field">
+                <span>Judul berita</span>
+                <input type="text" name="title" maxlength="120" placeholder="Contoh: Praktik perdana jurusan Tata Busana" required>
+              </label>
+
+              <div class="field-row">
+                <label class="field">
+                  <span>Tanggal</span>
+                  <input type="date" name="date" required>
+                </label>
+                <label class="field">
+                  <span>Kategori</span>
+                  <input type="text" name="tag" maxlength="24" list="tagOptions" placeholder="Kegiatan">
+                </label>
+              </div>
+              <datalist id="tagOptions">
+                <option value="Pengumuman"></option>
+                <option value="Kegiatan"></option>
+                <option value="Praktik"></option>
+                <option value="Akademik"></option>
+                <option value="Kemitraan"></option>
+                <option value="Prestasi"></option>
+              </datalist>
+
+              <label class="field">
+                <span>Ringkasan</span>
+                <textarea name="text" rows="4" maxlength="500" placeholder="Tuliskan ringkasan berita secara singkat." required></textarea>
+              </label>
+
+              <label class="field">
+                <span>Foto</span>
+                <select name="image" data-image-select></select>
+              </label>
+
+              <div class="admin-form__actions">
+                <button class="btn btn--primary" type="submit" data-submit-label>Simpan berita</button>
+                <button class="btn btn--ghost" type="button" data-cancel hidden>Batal edit</button>
+              </div>
+            </form>
+
+            <div class="admin-card">
+              <div class="admin-list-head">
+                <h2>Berita tersimpan</h2>
+                <p>Urutan tampil di website mengikuti urutan di bawah ini.</p>
+              </div>
+              <div class="admin-list" data-list="news"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- KALENDER ---------- -->
+        <section class="admin-panel" id="panel-calendar" role="tabpanel" aria-labelledby="tab-calendar" hidden>
+          <div class="admin-split">
+            <form class="admin-card admin-form" data-form="calendar">
+              <div>
+                <h2 data-form-title>Tambah agenda</h2>
+                <p class="admin-card__hint">Agenda baru ditambahkan di urutan paling bawah.</p>
+              </div>
+              <input type="hidden" name="id">
+
+              <div class="field-row">
+                <label class="field">
+                  <span>Tanggal</span>
+                  <input type="text" name="day" maxlength="12" placeholder="Contoh: 14–18" required>
+                </label>
+                <label class="field">
+                  <span>Bulan &amp; tahun</span>
+                  <input type="text" name="month" maxlength="20" placeholder="Contoh: Jul 2026" required>
+                </label>
+              </div>
+
+              <label class="field">
+                <span>Nama kegiatan</span>
+                <input type="text" name="title" maxlength="120" placeholder="Contoh: Penilaian Tengah Semester" required>
+              </label>
+
+              <label class="field">
+                <span>Keterangan</span>
+                <textarea name="text" rows="3" maxlength="400" placeholder="Penjelasan singkat kegiatan."></textarea>
+              </label>
+
+              <label class="admin-check">
+                <input type="checkbox" name="holiday">
+                <span>Tandai sebagai hari libur</span>
+              </label>
+
+              <div class="admin-form__actions">
+                <button class="btn btn--primary" type="submit" data-submit-label>Simpan agenda</button>
+                <button class="btn btn--ghost" type="button" data-cancel hidden>Batal edit</button>
+              </div>
+            </form>
+
+            <div class="admin-card">
+              <div class="admin-list-head">
+                <h2>Agenda tersimpan</h2>
+                <p>Ditampilkan pada tab Akademik → Kalender Akademik.</p>
+              </div>
+              <div class="admin-list" data-list="calendar"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- PRESTASI ---------- -->
+        <section class="admin-panel" id="panel-achievements" role="tabpanel" aria-labelledby="tab-achievements" hidden>
+          <div class="admin-split">
+            <form class="admin-card admin-form" data-form="achievements">
+              <div>
+                <h2 data-form-title>Tambah prestasi</h2>
+                <p class="admin-card__hint">Prestasi baru ditambahkan di urutan paling bawah.</p>
+              </div>
+              <input type="hidden" name="id">
+
+              <div class="field-row">
+                <label class="field">
+                  <span>Tingkat</span>
+                  <input type="text" name="level" maxlength="60" placeholder="Contoh: Tingkat Kabupaten" required>
+                </label>
+                <label class="field">
+                  <span>Tahun</span>
+                  <input type="text" name="year" maxlength="9" placeholder="2026">
+                </label>
+              </div>
+
+              <label class="field">
+                <span>Nama prestasi</span>
+                <input type="text" name="title" maxlength="140" placeholder="Contoh: Juara 1 Lomba Desain Busana" required>
+              </label>
+
+              <label class="field">
+                <span>Keterangan</span>
+                <textarea name="text" rows="3" maxlength="400" placeholder="Penjelasan singkat prestasi."></textarea>
+              </label>
+
+              <label class="field">
+                <span>Ikon</span>
+                <select name="icon" data-icon-select></select>
+              </label>
+
+              <div class="admin-form__actions">
+                <button class="btn btn--primary" type="submit" data-submit-label>Simpan prestasi</button>
+                <button class="btn btn--ghost" type="button" data-cancel hidden>Batal edit</button>
+              </div>
+            </form>
+
+            <div class="admin-card">
+              <div class="admin-list-head">
+                <h2>Prestasi tersimpan</h2>
+                <p>Ditampilkan pada tab Akademik → Prestasi.</p>
+              </div>
+              <div class="admin-list" data-list="achievements"></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------- DATA & PENGATURAN ---------- -->
+        <section class="admin-panel" id="panel-data" role="tabpanel" aria-labelledby="tab-data" hidden>
+          <div class="admin-data-grid">
+            <div class="admin-card">
+              <h2>Ekspor data</h2>
+              <p class="admin-card__hint">Unduh cadangan berita, kalender, dan prestasi dalam satu file JSON.</p>
+              <button class="btn btn--primary" type="button" id="exportBtn">Unduh cadangan JSON</button>
+            </div>
+
+            <div class="admin-card">
+              <h2>Impor data</h2>
+              <p class="admin-card__hint">Pulihkan konten dari file cadangan. Data yang ada saat ini akan diganti.</p>
+              <input class="admin-file" type="file" id="importFile" accept="application/json,.json">
+              <p class="admin-card__hint" id="importStatus" hidden></p>
+            </div>
+
+            <div class="admin-card">
+              <h2>Ganti kata sandi</h2>
+              <form class="admin-password-form" id="passwordForm">
+                <label class="field">
+                  <span>Kata sandi saat ini</span>
+                  <input type="password" name="current" autocomplete="current-password" required>
+                </label>
+                <label class="field">
+                  <span>Kata sandi baru</span>
+                  <input type="password" name="next" minlength="6" autocomplete="new-password" required>
+                </label>
+                <label class="field">
+                  <span>Ulangi kata sandi baru</span>
+                  <input type="password" name="confirm" minlength="6" autocomplete="new-password" required>
+                </label>
+                <p class="admin-alert" id="passwordError" role="alert" hidden>Kata sandi tidak cocok atau kurang dari 6 karakter.</p>
+                <button class="btn btn--primary" type="submit">Simpan kata sandi</button>
+              </form>
+            </div>
+
+            <div class="admin-card">
+              <h2>Reset konten</h2>
+              <p class="admin-card__hint">Kembalikan berita, kalender, dan prestasi ke data awal website.</p>
+              <button class="btn btn--danger" type="button" id="resetBtn">Reset ke data awal</button>
+              <p class="admin-note">Data admin disimpan di <strong>browser ini</strong> (localStorage). Agar tampil di komputer lain atau untuk semua pengunjung, gunakan tombol <strong>Ekspor data</strong>, lalu impor di browser tersebut. Halaman ini hanya pengunci tampilan, bukan sistem keamanan server.</p>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer class="admin-footer">
+      <div class="container admin-footer__inner">
+        <p>&copy; <span data-year>2026</span> SMK Bintang Nusantara 2 — Panel Operator</p>
+        <a href="index.html">Kembali ke website <span aria-hidden="true">→</span></a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="admin-toast" id="adminToast" role="status" aria-live="polite"></div>
+
+  <script src="assets/js/content-data.js" defer></script>
+  <script src="assets/js/content-store.js" defer></script>
+  <script src="assets/js/admin.js" defer></script>
+</body>
+</html>

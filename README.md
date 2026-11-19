@@ -64,7 +64,7 @@ guru sebenarnya tersedia.
 | Nama | SMK Bintang Nusantara 2 |
 | NPSN | 70009003 |
 | Berdiri | 13 Juli 2026 |
-| Alamat | Jl. Endro Surmin Gg. Pondok Dusun Negeri 5B, Desa Way Galih, Kec. Tanjungbintang, Lampung Selatan 35365 |
+| Alamat | Jl. Endro Surmin Gg. Pondok Dusun Negeri 5B, Desa Way Galih, Kec. Tanjung Bintang, Lampung Selatan 35365 |
 | Kelas | Kelas 10 |
 | Jurusan | Teknik Sepeda Motor (13 siswa), Tata Busana (10 siswa) |
 | Total siswa | 23 |
