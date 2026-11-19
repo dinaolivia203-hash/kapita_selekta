@@ -191,6 +191,16 @@
     Object.keys(itemRenderers).forEach(renderList);
   }
 
+  function saveOrWarn() {
+    try {
+      content = store.save(content);
+      return true;
+    } catch (error) {
+      window.alert("Data tidak bisa disimpan di browser ini. Penyimpanan penuh atau diblokir. Coba ekspor data terlebih dahulu.");
+      return false;
+    }
+  }
+
   /* ---------------------------------------------------------------------
      3. Tab panel
      --------------------------------------------------------------------- */
@@ -337,7 +347,7 @@
         list.push(item);
       }
 
-      content = store.save(content);
+      if (!saveOrWarn()) return;
       renderAll();
       resetForm(form);
       toast(isEditing ? "Perubahan tersimpan." : "Konten baru ditambahkan.");
@@ -370,8 +380,11 @@
       var item = content[key][index];
       if (!window.confirm('Hapus "' + item.title + '"? Tindakan ini tidak bisa dibatalkan.')) return;
 
-      content[key].splice(index, 1);
-      content = store.save(content);
+      var removed = content[key].splice(index, 1)[0];
+      if (!saveOrWarn()) {
+        content[key].splice(index, 0, removed);
+        return;
+      }
       renderAll();
       resetForm($('[data-form="' + key + '"]'));
       toast("Konten dihapus.");
@@ -449,7 +462,11 @@
             return;
           }
 
-          content = store.save(store.normalize(parsed));
+          content = store.normalize(parsed);
+          if (!saveOrWarn()) {
+            importFile.value = "";
+            return;
+          }
           renderAll();
           resetAllForms();
 

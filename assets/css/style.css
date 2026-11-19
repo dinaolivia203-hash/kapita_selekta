@@ -1290,7 +1290,7 @@ button { font-family: inherit; }
 .footer__admin {
   font-size: 11.5px;
   font-weight: 600;
-  color: rgba(255, 255, 255, .42);
+  color: rgba(255, 255, 255, .55);
 }
 .footer__admin:hover { color: var(--sky-300); }
 

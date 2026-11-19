@@ -5,6 +5,8 @@
 
 .admin-body { background: var(--tint); }
 
+.admin-body [hidden] { display: none !important; }
+
 /* ---------- Gerbang masuk ---------- */
 .admin-gate {
   display: grid;
