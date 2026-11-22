@@ -1,47 +1,140 @@
-HEAD
-# kapita_selekta
-
 # Website Profil SMK Bintang Nusantara 2
 
-Website profil sekolah (static) dengan navigasi berbasis tab: Beranda, Profil, Jurusan,
-Fasilitas, Galeri, dan Kontak. Setiap menu membuka halamannya sendiri tanpa reload, dan
-Beranda memiliki hero foto yang berganti otomatis.
+Website profil sekolah dengan navigasi berbasis tab — Beranda, Profil, Jurusan,
+Fasilitas, Galeri, Berita, dan Kontak — plus panel admin untuk mengelola berita,
+prestasi, dan kegiatan sekolah.
 
-## Menjalankan
+- **Frontend publik**: HTML/CSS/JavaScript statis (`public/`) agar halaman beranda
+  tetap ringan.
+- **Halaman berita & admin**: Next.js App Router (React 19).
+- **Database**: Supabase (PostgreSQL).
+- **Penyimpanan gambar**: Supabase Storage (bucket `foto`).
+- **Hosting**: Vercel.
 
-- Klik dua kali `index.html`, atau
-- Jalankan server lokal dari folder ini:
+## Menjalankan di komputer
 
-```bash
-python -m http.server 8000
-```
+1. Pastikan Node.js 20+ terpasang.
+2. Salin `.env.example` menjadi `.env.local`, lalu isi:
 
-lalu buka `http://localhost:8000`.
+   ```env
+   NEXT_PUBLIC_SUPABASE_URL=https://<project-ref>.supabase.co
+   NEXT_PUBLIC_SUPABASE_ANON_KEY=<publishable key>
+   SUPABASE_SERVICE_ROLE_KEY=<secret key>
+   SUPABASE_STORAGE_BUCKET=foto
+   AUTH_SECRET=<string acak minimal 32 karakter>
+   DATABASE_URL=postgresql://...   # hanya untuk migrasi
+   ```
+
+   Buat `AUTH_SECRET` dengan:
+
+   ```bash
+   node -e "console.log(require('crypto').randomBytes(32).toString('base64url'))"
+   ```
+
+3. Pasang dependensi dan migrasi database:
+
+   ```bash
+   npm install
+   npm run migrate
+   ```
+
+   `npm run migrate` membuat tabel, mengaktifkan RLS, menyiapkan bucket Storage,
+   membuat akun admin pertama, dan mengisi berita contoh (hanya jika tabel kosong).
+
+4. Jalankan server:
+
+   ```bash
+   npm run dev
+   ```
+
+5. Buka:
+
+   - Website: `http://localhost:3000`
+   - Admin: `http://localhost:3000/admin/login`
+
+Akun admin awal mengikuti `SEED_ADMIN_USERNAME` / `SEED_ADMIN_PASSWORD`
+(default: `admin` / `Kapita2026`). **Segera ganti password** setelah login pertama
+dengan membuat hash baru di database (lihat bagian Keamanan).
+
+## Deploy ke Vercel
+
+1. Login ke Vercel:
+
+   ```bash
+   npx vercel login
+   ```
+
+2. Hubungkan folder proyek:
+
+   ```bash
+   npx vercel link
+   ```
+
+3. Tambahkan environment variables (untuk Production, Preview, dan Development):
+
+   ```bash
+   npx vercel env add NEXT_PUBLIC_SUPABASE_URL
+   npx vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY
+   npx vercel env add SUPABASE_SERVICE_ROLE_KEY
+   npx vercel env add SUPABASE_STORAGE_BUCKET
+   npx vercel env add AUTH_SECRET
+   ```
+
+   `DATABASE_URL` tidak perlu di Vercel — hanya dipakai saat migrasi lokal.
+
+4. Deploy:
+
+   ```bash
+   npx vercel --prod
+   ```
 
 ## Struktur
 
 ```
-index.html               Halaman utama (semua tab ada di file ini)
-assets/css/style.css     Semua tampilan (warna, layout, bagan guru, responsif)
-assets/js/main.js        Navigasi tab, slider foto, animasi, tinggi header
-assets/img/              Logo sekolah + foto kegiatan
+app/
+  layout.tsx                 Layout akar
+  (public)/layout.tsx        Memuat CSS/font halaman publik
+  (public)/berita/           Daftar & detail berita
+  admin/login/               Login admin
+  admin/(panel)/             Dashboard & form tulis/edit berita
+  api/posts/route.ts         Feed JSON untuk beranda & tab Berita
+  api/admin/upload-sign/     Signed URL unggah gambar ke Supabase Storage
+components/                  Header, footer, kartu berita, navigasi admin
+lib/                         Koneksi Supabase, sesi admin, query berita, util
+scripts/migrate.mjs          Migrasi tabel + seed
+public/
+  index.html                 Beranda (semua tab)
+  assets/css/style.css       Tampilan website
+  assets/js/main.js          Navigasi tab, slider, pemuatan berita
+  assets/admin.css           Tampilan panel admin
+  assets/img/                Foto & logo sekolah
+legacy-php/                  Kode PHP versi lama (arsip, tidak dipakai)
 ```
 
-## Navigasi tab
+## Alur data
 
-- Setiap tab adalah `<div class="tab-panel" id="...">` di `index.html`. Hanya satu tab
-  yang terlihat; sisanya memakai atribut `hidden`.
-- Semua tautan `href="#profil"`, `#jurusan`, dan seterusnya ditangani oleh `assets/js/main.js`
-  (fungsi `showTab`), lalu `history.pushState` dipakai agar tombol Back/Forward browser dan
-  URL seperti `index.html#galeri` tetap bekerja.
-- Menu utama selalu tampil di semua ukuran layar, tanpa tombol hamburger. Di layar kecil
-  menu menjadi dua baris (3 x 2) di bawah logo.
-- Tinggi header diukur otomatis lewat CSS variable `--header-h`, sehingga konten dan hero
-  tidak tertutup header.
+- Beranda dan tab **Berita** memanggil `GET /api/posts?limit=…&kategori=…`.
+- API hanya mengembalikan tulisan berstatus terbit.
+- Detail berita ada di `/berita/<slug>`.
+- Status **Draf** tidak tampil untuk pengunjung.
+- Isi berita berupa teks biasa; baris kosong menjadi paragraf baru dan semua
+  teks di-escape oleh React.
+
+## Keamanan
+
+- Password admin di-hash dengan bcrypt (cost 12).
+- Sesi memakai JWT bertanda tangan (`AUTH_SECRET`) di cookie `HttpOnly`,
+  `SameSite=Lax`, dan `Secure` saat produksi.
+- RLS aktif di semua tabel; tidak ada policy publik. Semua akses database
+  melewati server Next.js dengan service role key.
+- Login dibatasi 5 percobaan gagal per 10 menit (per username + IP).
+- Unggahan gambar divalidasi tipe & ukuran (maks. 6 MB), diunggah langsung ke
+  Supabase Storage lewat signed URL, dan memakai nama acak.
+- Service role key tidak pernah dikirim ke browser; file `.env.local` diabaikan git.
 
 ## Bagan guru & tenaga kependidikan
 
-Ada di tab **Profil**, bagian "Struktur Organisasi":
+Ada di tab **Profil**, bagian "Struktur Organisasi" (`public/index.html`, blok `.org`).
 
 | Bagian | Nama | Keterangan |
 | --- | --- | --- |
@@ -53,9 +146,8 @@ Ada di tab **Profil**, bagian "Struktur Organisasi":
 | Guru Tata Busana | Dewi Lestari, S.Pd. | Guru Produktif Tata Busana (dummy) |
 | Guru Tata Busana | Siti Aminah, S.Pd. | Guru Umum (dummy) |
 
-Semua nama selain kepala sekolah masih berupa **data sementara** dan ditandai dengan
-catatan kecil di bawah bagan. Ganti nama pada blok `.org` di `index.html` setelah data
-guru sebenarnya tersedia.
+Semua nama selain kepala sekolah masih data sementara dan ditandai catatan kecil
+di bawah bagan.
 
 ## Data sekolah yang dipakai
 
@@ -72,18 +164,9 @@ guru sebenarnya tersedia.
 
 ## Cara mengubah
 
-- **Teks / data**: cari bagian yang sesuai di `index.html` (misalnya `23 siswa`, `NPSN`, alamat).
-- **Nama di bagan guru**: ubah blok `.org` di `index.html` (kartu `.org__leader`,
-  `.org__unit`, dan daftar `.org__people`).
-- **Menambah / mengganti tab**: buat `<div class="tab-panel" id="baru" hidden>` di `index.html`,
-  lalu tambahkan tautan `<a class="nav__link" href="#baru">` di menu dan footer. ID tab
-  otomatis dikenali oleh `main.js`.
-- **Foto hero (slide)**: ganti file di `assets/img/` atau ubah daftar `<figure class="hero__slide">`
-  beserta `data-caption`, jumlah titik navigasi (`.dot`) dan teks `01 / 05`.
-- **Galeri**: ubah blok `.gallery__item` di `index.html`.
-- **Warna**: ubah variabel di bagian atas `assets/css/style.css` (`--navy-800`, `--sky-300`,
-  dan seterusnya).
-- **Kecepatan slide**: atur `data-autoplay="6000"` (milidetik) pada elemen `.hero__slider`.
-
-Semua foto di `assets/img/` sudah diperkecil (maksimal 1600 px) agar halaman tetap ringan.
- 3364aea (membuat web smk binus 2)
+- **Teks / data sekolah**: ubah `public/index.html`.
+- **Nama di bagan guru**: ubah blok `.org` di `public/index.html`.
+- **Foto hero / galeri**: ganti file di `public/assets/img/` atau ubah markup terkait.
+- **Warna**: variabel di bagian atas `public/assets/css/style.css`.
+- **Berita**: lewat panel admin di `/admin`.
+- **Berita contoh**: ada di `scripts/migrate.mjs` (hanya dipakai saat tabel kosong).

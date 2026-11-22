@@ -1,0 +1,28 @@
+{
+  "name": "smk-bintang-nusantara-2",
+  "version": "2.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "migrate": "node scripts/migrate.mjs"
+  },
+  "dependencies": {
+    "@supabase/supabase-js": "^2.119.2",
+    "bcryptjs": "^3.0.3",
+    "jose": "^6.2.18",
+    "next": "^16.4.6",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "@types/pg": "^8.15.6",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "dotenv": "^17.2.3",
+    "pg": "^8.23.1",
+    "typescript": "^5.9.3"
+  }
+}

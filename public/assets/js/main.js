@@ -279,7 +279,194 @@
   showTab(activePanelId(), { scroll: false });
 
   /* ---------------------------------------------------------------------
-     5. Tahun berjalan di footer
+     5. Berita, prestasi & kegiatan (data dari api/posts.php)
+     --------------------------------------------------------------------- */
+  var newsGrid = document.querySelector("[data-news-grid]");
+  var newsFilters = document.querySelector("[data-news-filters]");
+  var newsEmpty = document.querySelector("[data-news-empty]");
+  var newsMore = document.querySelector("[data-news-more]");
+  var latestSection = document.querySelector("[data-latest-section]");
+  var latestGrid = document.querySelector("[data-latest-grid]");
+
+  function buildNewsCard(item) {
+    var card = document.createElement("article");
+    card.className = "news-card";
+
+    var media = document.createElement("a");
+    media.className = "news-card__media";
+    media.href = item.url;
+    media.tabIndex = -1;
+    media.setAttribute("aria-hidden", "true");
+
+    if (item.image) {
+      var img = document.createElement("img");
+      img.src = item.image;
+      img.alt = "";
+      img.loading = "lazy";
+      media.appendChild(img);
+    } else {
+      var placeholder = document.createElement("span");
+      placeholder.className = "news-card__placeholder";
+      placeholder.setAttribute("aria-hidden", "true");
+      placeholder.textContent = (item.category_label || "B").charAt(0);
+      media.appendChild(placeholder);
+    }
+
+    var badge = document.createElement("span");
+    badge.className = "news-card__badge badge--" + item.category;
+    badge.textContent = item.category_label;
+    media.appendChild(badge);
+
+    var body = document.createElement("div");
+    body.className = "news-card__body";
+
+    var date = document.createElement("p");
+    date.className = "news-card__date";
+    var time = document.createElement("time");
+    time.dateTime = item.date_iso;
+    time.textContent = item.date;
+    date.appendChild(time);
+
+    var heading = document.createElement("h3");
+    var titleLink = document.createElement("a");
+    titleLink.href = item.url;
+    titleLink.textContent = item.title;
+    heading.appendChild(titleLink);
+
+    var excerpt = document.createElement("p");
+    excerpt.className = "news-card__excerpt";
+    excerpt.textContent = item.excerpt;
+
+    var link = document.createElement("a");
+    link.className = "link";
+    link.href = item.url;
+    link.textContent = "Baca selengkapnya ";
+    var arrow = document.createElement("span");
+    arrow.setAttribute("aria-hidden", "true");
+    arrow.textContent = "→";
+    link.appendChild(arrow);
+
+    body.appendChild(date);
+    body.appendChild(heading);
+    body.appendChild(excerpt);
+    body.appendChild(link);
+
+    card.appendChild(media);
+    card.appendChild(body);
+
+    return card;
+  }
+
+  function fillNewsGrid(grid, items) {
+    grid.textContent = "";
+    items.forEach(function (item) {
+      grid.appendChild(buildNewsCard(item));
+    });
+  }
+
+  function newsRequest(path) {
+    return fetch(path, { headers: { Accept: "application/json" } }).then(function (response) {
+      if (!response.ok) throw new Error("HTTP " + response.status);
+      return response.json();
+    });
+  }
+
+  if (newsGrid) {
+    var currentCategory = "";
+    var requestId = 0;
+
+    var emptyTitle = newsEmpty ? newsEmpty.querySelector("strong") : null;
+    var defaultEmptyText = emptyTitle ? emptyTitle.textContent : "";
+
+    var showNewsError = function (message) {
+      newsGrid.hidden = true;
+      if (newsEmpty) {
+        newsEmpty.hidden = false;
+        if (emptyTitle && message) emptyTitle.textContent = message;
+      }
+      if (newsMore) newsMore.hidden = false;
+    };
+
+    var loadNews = function (category) {
+      var id = ++requestId;
+
+      newsGrid.hidden = false;
+      newsGrid.textContent = "";
+      var loading = document.createElement("p");
+      loading.className = "news-loading";
+      loading.textContent = "Memuat berita…";
+      newsGrid.appendChild(loading);
+      if (newsEmpty) newsEmpty.hidden = true;
+      if (newsMore) newsMore.hidden = true;
+
+      newsRequest("/api/posts?limit=12" + (category ? "&kategori=" + encodeURIComponent(category) : ""))
+        .then(function (data) {
+          if (id !== requestId) return;
+
+          var items = data.items || [];
+
+          if (!items.length) {
+            if (emptyTitle) {
+              emptyTitle.textContent = category
+                ? "Belum ada " + category + " yang dipublikasikan."
+                : defaultEmptyText;
+            }
+            showNewsError("");
+            return;
+          }
+
+          fillNewsGrid(newsGrid, items);
+          newsGrid.hidden = false;
+          if (newsEmpty) newsEmpty.hidden = true;
+          if (newsMore) newsMore.hidden = false;
+        })
+        .catch(function () {
+          if (id !== requestId) return;
+          showNewsError("Berita belum dapat dimuat.");
+        });
+    };
+
+    if (newsFilters) {
+      newsFilters.addEventListener("click", function (event) {
+        var button = event.target.closest("[data-category]");
+        if (!button) return;
+
+        var category = button.getAttribute("data-category") || "";
+        if (category === currentCategory) return;
+        currentCategory = category;
+
+        Array.prototype.forEach.call(newsFilters.querySelectorAll("[data-category]"), function (item) {
+          var active = item === button;
+          item.classList.toggle("is-active", active);
+          item.setAttribute("aria-pressed", active ? "true" : "false");
+        });
+
+        loadNews(category);
+      });
+    }
+
+    loadNews("");
+  }
+
+  if (latestSection && latestGrid) {
+    newsRequest("/api/posts?limit=3")
+      .then(function (data) {
+        var items = data.items || [];
+        if (!items.length) return;
+
+        fillNewsGrid(latestGrid, items);
+        latestSection.hidden = false;
+
+        var head = latestSection.querySelector(".reveal");
+        if (head) head.classList.add("is-visible");
+      })
+      .catch(function () {
+        /* Bagian kabar terbaru disembunyikan jika API belum tersedia. */
+      });
+  }
+
+  /* ---------------------------------------------------------------------
+     6. Tahun berjalan di footer
      --------------------------------------------------------------------- */
   var yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());

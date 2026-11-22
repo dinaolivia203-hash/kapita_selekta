@@ -1,0 +1,21 @@
+# Dependency & build
+node_modules/
+.next/
+out/
+.vercel/
+*.tsbuildinfo
+
+# Data lokal / rahasia
+.env
+.env.local
+.env.*.local
+.env*.local
+!.env.example
+legacy-php/storage/*.sqlite
+legacy-php/storage/*.sqlite-*
+legacy-php/storage/installed.lock
+config.local.php
+
+# Berkas sistem
+Thumbs.db
+.DS_Store

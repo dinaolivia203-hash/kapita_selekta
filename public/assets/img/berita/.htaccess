@@ -1,0 +1,14 @@
+# Cegah eksekusi skrip di folder unggahan.
+<IfModule mod_authz_core.c>
+  <FilesMatch "\.(php|phtml|php[0-9]|phps|phar|cgi|pl|py|sh)$">
+    Require all denied
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  <FilesMatch "\.(php|phtml|php[0-9]|phps|phar|cgi|pl|py|sh)$">
+    Order deny,allow
+    Deny from all
+  </FilesMatch>
+</IfModule>
+
+Options -Indexes

@@ -1,0 +1,5 @@
+# Folder ini hanya untuk penanda instalasi / database uji lokal.
+# File .htaccess tetap disimpan agar folder tidak dapat diakses publik.
+*
+!.gitignore
+!.htaccess
