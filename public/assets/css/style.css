@@ -557,135 +557,342 @@ button { font-family: inherit; }
 }
 
 /* ---------- 5b. Sambutan kepala sekolah ---------- */
+.principal-section { background: #e9ecef; }
+
+.principal-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 11px 14px;
+  border: 1px solid rgba(15, 30, 51, .12);
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(15, 30, 51, .06);
+}
+
+.principal-toolbar__title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11.5px;
+  font-weight: 800;
+  letter-spacing: .01em;
+  color: #0f1e33;
+}
+
+.principal-toolbar__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #0f1e33;
+}
+
+.principal-toolbar__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.principal-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 11px;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  background: #f8fafc;
+  color: #0f1e33;
+  font-family: inherit;
+  font-size: 11.5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.principal-toolbar__btn:hover { background: #eef2f7; }
+
+.principal-toolbar__btn svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.principal-toolbar__btn--primary {
+  border-color: #0f1e33;
+  background: #0f1e33;
+  color: #ffffff;
+}
+
+.principal-toolbar__btn--primary svg { color: #c59b27; }
+.principal-toolbar__btn--primary:hover { background: #172b47; }
+
+.principal-toolbar__btn.is-active {
+  border-color: #c59b27;
+  background: #c59b27;
+  color: #0f1e33;
+}
+
+.principal-toolbar__file { display: none; }
+
+.principal-toolbar.is-hidden { display: none; }
+
+.principal-toolbar-show {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 90;
+  display: none;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 15px;
+  border: 1px solid #c59b27;
+  border-radius: 999px;
+  background: #0f1e33;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 16px 34px rgba(15, 30, 51, .28);
+}
+
+.principal-toolbar-show.is-visible { display: inline-flex; }
+
+.principal-toolbar-show svg {
+  width: 15px;
+  height: 15px;
+  fill: none;
+  stroke: #c59b27;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
 .principal-card {
-  display: grid;
-  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
-  min-height: 470px;
+  position: relative;
+  display: flex;
+  min-height: 540px;
   overflow: hidden;
-  border: 1px solid rgba(15, 30, 51, .08);
-  border-radius: 24px;
-  background: #faf9f6;
-  box-shadow: 0 26px 60px rgba(15, 30, 51, .14);
+  border-radius: 26px;
+  background: #0f1e33;
+  box-shadow: 0 30px 70px rgba(15, 30, 51, .22);
 }
 
 .principal-card__photo {
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 30px 26px 0;
+  flex: 0 0 46%;
+  max-width: 46%;
+  min-width: 0;
   overflow: hidden;
-  background:
-    radial-gradient(circle at 50% 34%, rgba(197, 155, 39, .22), transparent 62%),
-    linear-gradient(180deg, #fdfbf6 0%, #f1ece1 100%);
+  background: #faf9f6;
 }
 
-.principal-card__photo::before {
-  content: "";
+.principal-card__photo > #principalPhoto {
   position: absolute;
-  left: 12%;
-  bottom: 14%;
-  width: 76%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px solid rgba(197, 155, 39, .28);
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 14%;
 }
 
-.principal-card__photo::after {
-  content: "";
+.principal-card__curve {
   position: absolute;
-  inset: auto 0 0;
-  height: 26%;
-  z-index: 2;
-  background: linear-gradient(to top, rgba(15, 30, 51, .16), transparent);
-  pointer-events: none;
-}
-
-.principal-card__photo img {
-  position: relative;
-  z-index: 1;
-  width: 92%;
-  height: auto;
-  max-height: 94%;
-  object-fit: contain;
   display: block;
-  filter: drop-shadow(0 18px 30px rgba(15, 30, 51, .22));
+  object-fit: fill;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.principal-card__curve--desktop {
+  top: 0;
+  right: 0;
+  width: clamp(48px, 6vw, 84px);
+  height: 100%;
+}
+
+.principal-card__curve--mobile { display: none; }
+
+.principal-card__id {
+  position: absolute;
+  left: 30px;
+  bottom: 30px;
+  z-index: 4;
+  padding: 10px 14px 10px 12px;
+  border-left: 3px solid #c59b27;
+  border-radius: 0 10px 10px 0;
+  background: #faf9f6;
+  box-shadow: 0 10px 26px rgba(15, 30, 51, .24);
+}
+
+.principal-card__id-label {
+  display: block;
+  font-size: 9.5px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  color: #c59b27;
+}
+
+.principal-card__id-school {
+  display: block;
+  margin-top: 2px;
+  font-size: 11.5px;
+  font-weight: 800;
+  color: #0f1e33;
 }
 
 .principal-card__panel {
+  position: relative;
+  flex: 1 1 54%;
+  min-width: 0;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  padding: clamp(30px, 4vw, 54px);
+  padding: clamp(30px, 4vw, 52px);
   color: #faf9f6;
   background-color: #0f1e33;
-  background-image: radial-gradient(rgba(255, 255, 255, .03) 1px, transparent 0);
-  background-size: 20px 20px;
+  background-image: radial-gradient(rgba(255, 255, 255, .045) 1px, transparent 0);
+  background-size: 18px 18px;
 }
 
-.principal-card__kicker {
+.principal-card__eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid rgba(250, 249, 246, .14);
+}
+
+.principal-card__quote-mark {
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 2.4rem;
+  line-height: .5;
+  color: #c59b27;
+}
+
+.principal-card__eyebrow-label {
+  margin: 0;
   font-size: 10.5px;
   font-weight: 800;
   letter-spacing: .18em;
   text-transform: uppercase;
-  color: #c59b27;
-}
-
-.principal-card__mark {
-  display: block;
-  margin-top: 18px;
-  font-family: "Newsreader", Georgia, serif;
-  font-size: 4.4rem;
-  line-height: .6;
-  color: #c59b27;
+  color: rgba(250, 249, 246, .72);
 }
 
 .principal-card__quote {
-  margin: 0;
+  margin: 26px 0 0;
   font-family: "Newsreader", Georgia, serif;
-  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-size: clamp(1.4rem, 2.3vw, 1.9rem);
   font-weight: 500;
   line-height: 1.5;
   letter-spacing: -.01em;
   color: #faf9f6;
+  transition: opacity .25s ease, transform .25s ease;
 }
 
-.principal-card__person {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-  margin-top: 26px;
-  padding-top: 18px;
-  border-top: 1px solid rgba(197, 155, 39, .35);
+.principal-card.quote-fade .principal-card__quote {
+  opacity: .25;
+  transform: translateY(5px);
 }
 
-.principal-card__name {
+.principal-card__byline { margin-top: 24px; }
+
+.principal-card__divider {
+  display: block;
+  width: 64px;
+  height: 2px;
+  background: #c59b27;
+}
+
+.principal-card__author {
+  margin-top: 14px;
   font-size: 14px;
   font-weight: 800;
   color: #faf9f6;
 }
 
 .principal-card__role {
+  margin-top: 2px;
   font-size: 12px;
   color: rgba(250, 249, 246, .62);
 }
 
+.principal-card__footer {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 24px;
+  border-top: 1px solid rgba(250, 249, 246, .12);
+}
+
+.principal-card__footer strong {
+  font-size: 12px;
+  font-weight: 800;
+  color: #faf9f6;
+}
+
+.principal-card__footer span {
+  font-size: 11.5px;
+  color: rgba(250, 249, 246, .6);
+}
+
+.principal-card.is-editing [data-editable] {
+  outline: 1.5px dashed #c59b27;
+  outline-offset: 4px;
+  border-radius: 4px;
+  cursor: text;
+}
+
+.principal-card.is-editing [data-editable]:focus {
+  outline: 1.5px solid #c59b27;
+  background: rgba(197, 155, 39, .1);
+}
+
 @media (max-width: 900px) {
+  .principal-toolbar__title { width: 100%; }
+
   .principal-card {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     min-height: 0;
   }
 
   .principal-card__photo {
-    min-height: 320px;
-    padding: 24px 22px 0;
+    flex: none;
+    width: 100%;
+    max-width: none;
+    min-height: 360px;
   }
 
-  .principal-card__photo img { width: 58%; }
+  .principal-card__curve--desktop { display: none; }
 
-  .principal-card__panel { padding: 30px 24px 34px; }
+  .principal-card__curve--mobile {
+    display: block;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 64px;
+  }
 
-  .principal-card__mark { margin-top: 14px; }
+  .principal-card__id {
+    left: 18px;
+    bottom: 76px;
+  }
+
+  .principal-card__panel {
+    flex: none;
+    width: 100%;
+    padding: 30px 24px 34px;
+  }
 }
 
 /* ---------- 6. Bagian umum ---------- */
