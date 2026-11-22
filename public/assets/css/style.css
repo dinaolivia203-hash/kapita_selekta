@@ -158,7 +158,7 @@ button { font-family: inherit; }
   position: fixed;
   inset: 0 0 auto 0;
   z-index: 50;
-  padding-block: 14px;
+  padding-block: 14px 32px;
   background: rgba(6, 18, 46, .97);
   border-bottom: 1px solid rgba(255, 255, 255, .08);
   backdrop-filter: blur(14px);
@@ -169,6 +169,18 @@ button { font-family: inherit; }
 .site-header.is-scrolled {
   background: rgba(5, 15, 38, .99);
   box-shadow: 0 14px 40px rgba(3, 10, 28, .35);
+}
+
+/* Motif kain tapis Lampung di tepi bawah navbar */
+.site-header::after,
+.page-header::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 18px;
+  background: url("/assets/img/motif-navbar.svg") repeat-x left bottom / auto 100%;
+  pointer-events: none;
+  z-index: 1;
 }
 
 .header__inner {
@@ -1204,7 +1216,7 @@ button { font-family: inherit; }
 }
 
 @media (max-width: 960px) {
-  .site-header { padding-block: 10px; }
+  .site-header { padding-block: 10px 28px; }
   .header__inner { flex-wrap: wrap; gap: 8px 12px; }
   .brand__logo { width: 40px; height: 40px; }
   .brand__text strong { font-size: 12px; }
@@ -1476,6 +1488,8 @@ button { font-family: inherit; }
 
 /* Halaman berita.php */
 .page-header {
+  position: relative;
+  padding-bottom: 18px;
   background: var(--navy-900);
   border-bottom: 1px solid rgba(255, 255, 255, .08);
 }
@@ -1618,5 +1632,9 @@ button { font-family: inherit; }
   .section__head--row { align-items: flex-start; }
   .article__foot .btn { flex: 1 1 auto; text-align: center; }
   .page-header__inner { align-items: flex-start; }
+  .site-header::after,
+  .page-header::after { height: 14px; }
+  .site-header { padding-bottom: 26px; }
+  .page-header { padding-bottom: 14px; }
 }
 
