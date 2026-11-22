@@ -401,11 +401,10 @@ button { font-family: inherit; }
 }
 
 .hero__foot-inner {
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
   align-items: center;
-  gap: 20px;
-  padding-block: 18px 20px;
+  justify-content: flex-end;
+  padding-block: 12px 14px;
 }
 
 .hero__caption {
@@ -433,7 +432,9 @@ button { font-family: inherit; }
 .hero__controls {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 18px;
+  width: 100%;
 }
 
 .dots { display: flex; align-items: center; gap: 2px; }
