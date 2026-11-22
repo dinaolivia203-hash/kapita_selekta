@@ -15,6 +15,13 @@ export function PublicHeader() {
               width={44}
               height={44}
             />
+            <img
+              className="brand__logo brand__logo--partner"
+              src="/assets/img/logo-lampung-selatan.png"
+              alt="Lambang Kabupaten Lampung Selatan"
+              width={33}
+              height={44}
+            />
             <span className="brand__text">
               <strong>SMK BINTANG NUSANTARA 2</strong>
               <small>Tanjungbintang · Lampung Selatan</small>
