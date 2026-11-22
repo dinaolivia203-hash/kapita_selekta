@@ -559,165 +559,116 @@ button { font-family: inherit; }
 /* ---------- 5b. Sambutan kepala sekolah ---------- */
 .principal-card {
   display: grid;
-  grid-template-columns: minmax(0, .92fr) minmax(0, 1.08fr);
-  min-height: 480px;
+  grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+  min-height: 470px;
   overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 26px;
-  background: #fbf8f1;
-  box-shadow: 0 26px 60px rgba(6, 18, 46, .12);
+  border: 1px solid rgba(15, 30, 51, .08);
+  border-radius: 24px;
+  background: #faf9f6;
+  box-shadow: 0 26px 60px rgba(15, 30, 51, .14);
 }
 
-.principal-card__media {
+.principal-card__photo {
   position: relative;
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  padding: 26px 22px 0;
+  padding: 30px 26px 0;
   overflow: hidden;
   background:
-    radial-gradient(circle at 50% 26%, #174481 0%, #0c2257 50%, var(--navy-900) 100%);
+    radial-gradient(circle at 50% 34%, rgba(197, 155, 39, .22), transparent 62%),
+    linear-gradient(180deg, #fdfbf6 0%, #f1ece1 100%);
 }
 
-.principal-card__media::before {
+.principal-card__photo::before {
   content: "";
   position: absolute;
-  left: 10%;
-  bottom: 12%;
-  width: 80%;
+  left: 12%;
+  bottom: 14%;
+  width: 76%;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(210, 160, 61, .34), rgba(210, 160, 61, 0) 70%);
+  border: 1px solid rgba(197, 155, 39, .28);
 }
 
-.principal-card__media::after {
+.principal-card__photo::after {
   content: "";
   position: absolute;
   inset: auto 0 0;
-  height: 34%;
+  height: 26%;
   z-index: 2;
-  background: linear-gradient(to top, rgba(6, 18, 46, .78), transparent);
+  background: linear-gradient(to top, rgba(15, 30, 51, .16), transparent);
   pointer-events: none;
 }
 
-.principal-card__media img {
+.principal-card__photo img {
   position: relative;
   z-index: 1;
-  width: 90%;
+  width: 92%;
   height: auto;
   max-height: 94%;
   object-fit: contain;
   display: block;
-  filter: drop-shadow(0 18px 26px rgba(0, 0, 0, .3));
+  filter: drop-shadow(0 18px 30px rgba(15, 30, 51, .22));
 }
 
-.principal-card__body {
+.principal-card__panel {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(28px, 3.6vw, 48px);
-  background: #fbf8f1;
+  padding: clamp(30px, 4vw, 54px);
+  color: #faf9f6;
+  background-color: #0f1e33;
+  background-image: radial-gradient(rgba(255, 255, 255, .03) 1px, transparent 0);
+  background-size: 20px 20px;
 }
 
-.principal-card__label {
+.principal-card__kicker {
   font-size: 10.5px;
   font-weight: 800;
-  letter-spacing: .16em;
+  letter-spacing: .18em;
   text-transform: uppercase;
-  color: var(--gold-700);
+  color: #c59b27;
 }
 
-.principal-card__title {
-  margin-top: 10px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(1.65rem, 2.8vw, 2.35rem);
-  font-weight: 700;
-  line-height: 1.12;
-  letter-spacing: -.02em;
-  color: var(--navy-900);
+.principal-card__mark {
+  display: block;
+  margin-top: 18px;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: 4.4rem;
+  line-height: .6;
+  color: #c59b27;
 }
 
-.principal-card__greeting {
-  margin-top: 14px;
-  font-family: Georgia, "Times New Roman", serif;
-  font-size: 1rem;
-  font-style: italic;
+.principal-card__quote {
+  margin: 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(1.35rem, 2.4vw, 1.85rem);
+  font-weight: 500;
   line-height: 1.5;
-  color: var(--gold-700);
+  letter-spacing: -.01em;
+  color: #faf9f6;
 }
 
-.principal-card__text {
-  position: relative;
-  max-height: 210px;
-  margin-top: 14px;
-  overflow: hidden;
-  font-size: 14px;
-  line-height: 1.85;
-  color: #45526b;
-  transition: max-height .45s ease;
-}
-
-.principal-card__text::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 0;
-  height: 62px;
-  background: linear-gradient(to top, #fbf8f1, rgba(251, 248, 241, 0));
-  pointer-events: none;
-}
-
-.principal-card__text.is-expanded { max-height: 1200px; }
-
-.principal-card__text.is-expanded::after { display: none; }
-
-.principal-card__text p + p { margin-top: 11px; }
-
-.principal-card__signature {
+.principal-card__person {
   display: flex;
   flex-direction: column;
-  gap: 2px;
-  margin-top: 18px;
-  padding-top: 14px;
-  border-top: 1px solid var(--line);
+  gap: 3px;
+  margin-top: 26px;
+  padding-top: 18px;
+  border-top: 1px solid rgba(197, 155, 39, .35);
 }
 
 .principal-card__name {
   font-size: 14px;
   font-weight: 800;
-  color: var(--navy-900);
+  color: #faf9f6;
 }
 
 .principal-card__role {
   font-size: 12px;
-  color: var(--muted);
+  color: rgba(250, 249, 246, .62);
 }
-
-.principal-card__more {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  align-self: flex-start;
-  margin-top: 14px;
-  padding: 0;
-  border: 0;
-  background: none;
-  color: var(--blue-600);
-  font-size: 13px;
-  font-weight: 700;
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  cursor: pointer;
-}
-
-.principal-card__more:hover { color: var(--navy-900); }
-
-.principal-card__more svg {
-  width: 15px;
-  height: 15px;
-  transition: transform .3s ease;
-}
-
-.principal-card__more[aria-expanded="true"] svg { transform: rotate(180deg); }
 
 @media (max-width: 900px) {
   .principal-card {
@@ -725,17 +676,16 @@ button { font-family: inherit; }
     min-height: 0;
   }
 
-  .principal-card__media {
-    min-height: 300px;
-    padding-top: 18px;
+  .principal-card__photo {
+    min-height: 320px;
+    padding: 24px 22px 0;
   }
 
-  .principal-card__media img {
-    width: 58%;
-    max-height: 280px;
-  }
+  .principal-card__photo img { width: 58%; }
 
-  .principal-card__body { padding: 26px 22px 28px; }
+  .principal-card__panel { padding: 30px 24px 34px; }
+
+  .principal-card__mark { margin-top: 14px; }
 }
 
 /* ---------- 6. Bagian umum ---------- */
