@@ -543,7 +543,25 @@
   }
 
   /* ---------------------------------------------------------------------
-     6. Tahun berjalan di footer
+     6. Sambutan kepala sekolah: buka/tutup teks
+     --------------------------------------------------------------------- */
+  var welcomeMore = document.querySelector("[data-welcome-more]");
+  var welcomeText = welcomeMore
+    ? document.getElementById(welcomeMore.getAttribute("aria-controls"))
+    : null;
+
+  if (welcomeMore && welcomeText) {
+    welcomeMore.addEventListener("click", function () {
+      var expanded = welcomeMore.getAttribute("aria-expanded") === "true";
+      welcomeMore.setAttribute("aria-expanded", String(!expanded));
+      welcomeText.classList.toggle("is-expanded", !expanded);
+      var label = welcomeMore.querySelector("span");
+      if (label) label.textContent = expanded ? "Baca Selengkapnya" : "Tutup";
+    });
+  }
+
+  /* ---------------------------------------------------------------------
+     7. Tahun berjalan di footer
      --------------------------------------------------------------------- */
   var yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());

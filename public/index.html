@@ -108,30 +108,38 @@
       </section>
 
       <!-- ================= SAMBUTAN KEPALA SEKOLAH ================= -->
-      <section class="section section--tint welcome-section" id="sambutan" aria-labelledby="sambutan-title">
-        <div class="container welcome">
-          <div class="welcome__media reveal">
-            <!-- Data sementara: ganti foto, nama, dan NIP dengan data resmi sekolah. -->
-            <div class="welcome__photo">
-              <img src="assets/img/kepala-sekolah-dummy.png" alt="Ilustrasi kepala sekolah (foto sementara)" loading="lazy" width="426" height="528">
-              <span class="welcome__badge">KEPALA SEKOLAH</span>
+      <section class="section section--tint" id="sambutan" aria-labelledby="sambutan-title">
+        <div class="container">
+          <article class="principal-card reveal">
+            <div class="principal-card__profile">
+              <!-- Data sementara: ganti foto, nama, dan jabatan dengan data resmi sekolah. -->
+              <div class="principal-card__photo">
+                <img src="assets/img/kepala-sekolah-dummy.png" alt="Ilustrasi kepala sekolah (foto sementara)" width="426" height="528" loading="lazy">
+              </div>
+              <p class="principal-card__name">Agus Fedric, S.Pd.</p>
+              <p class="principal-card__role">Kepala SMK Bintang Nusantara 2</p>
+              <span class="principal-card__badge">★ Kepala Sekolah</span>
             </div>
-            <p class="welcome__name">Agus Fedric, S.Pd.</p>
-            <p class="welcome__nip">NIP: ................</p>
-          </div>
 
-          <div class="welcome__content reveal">
-            <p class="welcome__eyebrow">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.6 4.5C6.3 6 4.5 8.8 4.5 12.7V19.5h6.3v-6.3H7.6c.1-2.3 1.1-3.9 3-4.9L9.6 4.5Zm9.3 0c-3.3 1.5-5.1 4.3-5.1 8.2v6.8h6.3v-6.3h-3.2c.2-2.3 1.2-3.9 3.1-4.9l-1.1-3.8Z"/></svg>
-              Sambutan Kepala Sekolah
-            </p>
-            <h2 id="sambutan-title">Membangun Generasi Vokasi yang Berakhlak dan Siap Kerja</h2>
-            <blockquote class="welcome__quote">
-              <p>“Assalamu'alaikum warahmatullahi wabarakatuh. Pendidikan bukan hanya soal memindahkan materi pelajaran, tetapi tentang menumbuhkan karakter, rasa ingin tahu, dan keberanian untuk mencoba. Di SMK Bintang Nusantara 2, kami percaya bahwa setiap siswa memiliki potensi yang perlu dirawat dengan pendampingan yang sabar.</p>
-              <p>Kami berupaya menghubungkan pembelajaran di kelas dengan pengalaman nyata di ruang praktik dan dunia kerja. Nilai akademik tetap penting, tetapi kemandirian, kedisiplinan, dan kepedulian kepada sesama juga menjadi bekal yang kami tanamkan setiap hari.</p>
-              <p>Atas nama keluarga besar sekolah, saya mengucapkan terima kasih kepada orang tua, guru, dan mitra industri yang terus mendukung. Mari bersama-sama membangun generasi yang kompeten, berakhlak mulia, dan siap menghadapi perubahan zaman. Wassalamu'alaikum warahmatullahi wabarakatuh.”</p>
-            </blockquote>
-          </div>
+            <div class="principal-card__body">
+              <p class="principal-card__label">Sambutan Kepala Sekolah</p>
+              <h2 class="principal-card__greeting" id="sambutan-title">
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9.6 4.5C6.3 6 4.5 8.8 4.5 12.7V19.5h6.3v-6.3H7.6c.1-2.3 1.1-3.9 3-4.9L9.6 4.5Zm9.3 0c-3.3 1.5-5.1 4.3-5.1 8.2v6.8h6.3v-6.3h-3.2c.2-2.3 1.2-3.9 3.1-4.9l-1.1-3.8Z"/></svg>
+                Assalamu'alaikum Warahmatullahi Wabarakatuh
+              </h2>
+
+              <div class="principal-card__text" id="sambutan-text">
+                <p>Pendidikan bukan hanya soal memindahkan materi pelajaran, tetapi tentang menumbuhkan karakter, rasa ingin tahu, dan keberanian untuk mencoba. Di SMK Bintang Nusantara 2, kami percaya bahwa setiap siswa memiliki potensi yang perlu dirawat dengan pendampingan yang sabar.</p>
+                <p>Kami berupaya menghubungkan pembelajaran di kelas dengan pengalaman nyata di ruang praktik dan dunia kerja. Nilai akademik tetap penting, tetapi kemandirian, kedisiplinan, dan kepedulian kepada sesama juga menjadi bekal yang kami tanamkan setiap hari.</p>
+                <p>Atas nama keluarga besar sekolah, saya mengucapkan terima kasih kepada orang tua, guru, dan mitra industri yang terus mendukung. Mari bersama-sama membangun generasi yang kompeten, berakhlak mulia, dan siap menghadapi perubahan zaman. Wassalamu'alaikum warahmatullahi wabarakatuh.</p>
+              </div>
+
+              <button class="principal-card__more" type="button" data-welcome-more aria-expanded="false" aria-controls="sambutan-text">
+                <span>Baca Selengkapnya</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+              </button>
+            </div>
+          </article>
         </div>
       </section>
 
