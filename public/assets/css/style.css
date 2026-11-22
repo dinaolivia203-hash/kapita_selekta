@@ -241,11 +241,11 @@ button { font-family: inherit; }
 .nav__list {
   display: flex;
   gap: 4px;
-  padding: 5px;
-  border: 1px solid rgba(255, 255, 255, .16);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, .1);
-  backdrop-filter: blur(10px);
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  backdrop-filter: none;
 }
 
 .nav__link {
@@ -1445,8 +1445,8 @@ button { font-family: inherit; }
   .nav__list {
     justify-content: center;
     gap: 3px;
-    padding: 5px;
-    border-radius: 16px;
+    padding: 0;
+    border-radius: 0;
   }
   .nav__link {
     padding: 7px 11px;
@@ -1481,7 +1481,7 @@ button { font-family: inherit; }
   .nav__list {
     flex-wrap: wrap;
     gap: 3px;
-    padding: 4px;
+    padding: 0;
   }
   .nav__list li { flex: 0 0 calc(25% - 3px); }
   .nav__link { padding: 6px 2px; font-size: 12px; }
