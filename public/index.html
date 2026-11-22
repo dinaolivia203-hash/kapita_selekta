@@ -108,76 +108,28 @@
       </section>
 
       <!-- ================= SAMBUTAN KEPALA SEKOLAH ================= -->
-      <section class="section principal-section" id="sambutan" aria-labelledby="sambutan-title">
+      <section class="section section--tint" id="sambutan" aria-labelledby="sambutan-title">
         <div class="container">
-          <div class="principal-toolbar" id="principalToolbar">
-            <div class="principal-toolbar__title">
-              <span class="principal-toolbar__dot" aria-hidden="true"></span>
-              Editor Kartu Profil — SMK Bintang Nusantara 2
-            </div>
-            <div class="principal-toolbar__actions">
-              <label class="principal-toolbar__btn" for="principalPhotoUpload">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8.5" cy="9.5" r="1.5"/><path d="m21 15-5-5L5 21"/></svg>
-                <span>Ganti Foto</span>
-              </label>
-              <input type="file" id="principalPhotoUpload" class="principal-toolbar__file" accept="image/*">
-              <button class="principal-toolbar__btn" type="button" id="principalEditBtn" aria-pressed="false">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg>
-                <span id="principalEditLabel">Edit Teks</span>
-              </button>
-              <button class="principal-toolbar__btn" type="button" id="principalShuffleBtn">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>
-                <span>Acak Kutipan</span>
-              </button>
-              <button class="principal-toolbar__btn" type="button" id="principalCleanBtn">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
-                <span>Mode Bersih</span>
-              </button>
-              <button class="principal-toolbar__btn principal-toolbar__btn--primary" type="button" id="principalDownloadBtn">
-                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg>
-                <span>Unduh PNG</span>
-              </button>
-            </div>
-          </div>
-
-          <button class="principal-toolbar-show" type="button" id="principalToolbarShow">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
-            <span>Tampilkan Toolbar</span>
-          </button>
-
           <article class="principal-card reveal" id="principalCard">
-            <div class="principal-card__photo">
-              <img id="principalPhoto" src="assets/img/kepala-sekolah-dummy.png" alt="Foto kepala sekolah SMK Bintang Nusantara 2" width="426" height="528" loading="lazy">
-
-              <img class="principal-card__curve principal-card__curve--desktop" src="assets/img/principal-curve-desktop.svg" alt="" aria-hidden="true">
-              <img class="principal-card__curve principal-card__curve--mobile" src="assets/img/principal-curve-mobile.svg" alt="" aria-hidden="true">
-
-              <div class="principal-card__id">
-                <span class="principal-card__id-label" data-editable>KEPALA SEKOLAH</span>
-                <strong class="principal-card__id-school" data-editable>SMK BINTANG NUSANTARA 2</strong>
+            <div class="principal-card__profile">
+              <div class="principal-card__photo">
+                <img id="principalPhoto" src="assets/img/kepala-sekolah-dummy.png" alt="Foto kepala sekolah SMK Bintang Nusantara 2" width="426" height="528" loading="lazy">
               </div>
+              <p class="principal-card__name">Agus Fedric, S.Pd.</p>
+              <p class="principal-card__role">Kepala SMK Bintang Nusantara 2</p>
+              <span class="principal-card__badge">Kepala Sekolah</span>
             </div>
 
-            <div class="principal-card__panel">
-              <div class="principal-card__eyebrow">
-                <span class="principal-card__quote-mark" aria-hidden="true">“</span>
-                <h2 class="principal-card__eyebrow-label" id="sambutan-title">Pesan &amp; Kutipan</h2>
+            <div class="principal-card__body">
+              <h2 class="principal-card__greeting" id="sambutan-title">Assalamu'alaikum Warahmatullahi Wabarakatuh</h2>
+
+              <div class="principal-card__quote" id="principalQuote">
+                <p>Pendidikan bukan hanya soal memindahkan materi pelajaran, tetapi tentang menumbuhkan karakter, rasa ingin tahu, dan keberanian untuk mencoba. Di SMK Bintang Nusantara 2, kami percaya bahwa setiap siswa memiliki potensi yang perlu dirawat dengan pendampingan yang sabar.</p>
+                <p>Kami berupaya menghubungkan pembelajaran di kelas dengan pengalaman nyata di ruang praktik dan dunia kerja. Nilai akademik tetap penting, tetapi kemandirian, kedisiplinan, dan kepedulian kepada sesama juga menjadi bekal yang kami tanamkan setiap hari.</p>
+                <p>Atas nama keluarga besar sekolah, saya mengucapkan terima kasih kepada orang tua, guru, dan mitra industri yang terus mendukung. Mari bersama-sama membangun generasi yang kompeten, berakhlak mulia, dan siap menghadapi perubahan zaman. Wassalamu'alaikum warahmatullahi wabarakatuh.</p>
               </div>
 
-              <blockquote class="principal-card__quote" data-editable>
-                Pendidikan bukan hanya soal memindahkan materi pelajaran, tetapi tentang menumbuhkan karakter, rasa ingin tahu, dan keberanian untuk mencoba. Di SMK Bintang Nusantara 2, setiap siswa memiliki potensi yang perlu dirawat dengan pendampingan yang sabar.
-              </blockquote>
-
-              <div class="principal-card__byline">
-                <span class="principal-card__divider" aria-hidden="true"></span>
-                <p class="principal-card__author" data-editable>Agus Fedric, S.Pd.</p>
-                <p class="principal-card__role" data-editable>Kepala SMK Bintang Nusantara 2</p>
-              </div>
-
-              <footer class="principal-card__footer">
-                <strong data-editable>SMK Bintang Nusantara 2</strong>
-                <span data-editable>Unggul · Terampil · Berkarakter</span>
-              </footer>
+              <div class="principal-card__more" id="principalReadMore" role="button" tabindex="0" aria-expanded="false" aria-controls="principalQuote">Baca Selengkapnya</div>
             </div>
           </article>
         </div>
@@ -742,7 +694,6 @@
   </footer>
 
   <script src="assets/js/main.js" defer></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" defer></script>
   <script src="assets/js/principal-card.js" defer></script>
 </body>
 </html>
