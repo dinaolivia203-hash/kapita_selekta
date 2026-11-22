@@ -1049,6 +1049,7 @@ button { font-family: inherit; }
 
 /* ---------- 12. Kontak ---------- */
 .location {
+  margin-top: clamp(44px, 6vw, 76px);
   display: grid;
   grid-template-columns: 1.15fr .85fr;
   gap: clamp(28px, 4vw, 52px);
@@ -1123,7 +1124,7 @@ button { font-family: inherit; }
 
 .location__body .btn { margin-top: 24px; }
 
-.contact-block { margin-top: clamp(44px, 6vw, 76px); }
+.contact-block { margin-top: 0; }
 
 .contact {
   display: grid;
@@ -1144,16 +1145,56 @@ button { font-family: inherit; }
 .contact__card .link { margin-top: auto; padding-top: 14px; }
 
 .contact__card--channel {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
   color: inherit;
   text-decoration: none;
+  border-color: rgba(15, 30, 51, .08);
+  background:
+    radial-gradient(circle at 100% 0%, color-mix(in srgb, var(--accent) 16%, transparent), transparent 62%),
+    linear-gradient(160deg, #ffffff, #f8faff);
   transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
 }
 
-.contact__card--channel:hover {
-  transform: translateY(-4px);
-  border-color: transparent;
-  box-shadow: var(--shadow-md);
+.contact__card--channel::before {
+  content: "";
+  position: absolute;
+  top: -38px;
+  right: -38px;
+  z-index: 0;
+  width: 128px;
+  height: 128px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: .08;
+  transition: transform .45s ease, opacity .3s ease;
 }
+
+.contact__card--channel > * {
+  position: relative;
+  z-index: 1;
+}
+
+.contact__card--channel:hover {
+  transform: translateY(-5px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 22px 46px rgba(15, 30, 51, .13);
+}
+
+.contact__card--channel:hover::before {
+  transform: scale(1.25);
+  opacity: .13;
+}
+
+.contact__card--channel .link { color: var(--accent); }
+
+.contact__card--wa { --accent: #25d366; }
+.contact__card--ig { --accent: #e1306c; }
+.contact__card--fb { --accent: #1877f2; }
+.contact__card--email { --accent: #3b78e7; }
+.contact__card--yt { --accent: #ff3b30; }
+.contact__card--tiktok { --accent: #111827; }
 
 .contact__card--channel:focus-visible {
   outline: 2px solid var(--blue-500);
@@ -1175,6 +1216,7 @@ button { font-family: inherit; }
 
 .contact__icon--wa { background: #e7f7ee; color: #168a4b; }
 .contact__icon--ig { background: #fceaf2; color: #c13584; }
+.contact__icon--fb { background: #e8f0fe; color: #1877f2; }
 .contact__icon--email { background: var(--sky-100); color: var(--blue-600); }
 .contact__icon--yt { background: #fdecec; color: #d93025; }
 .contact__icon--tiktok { background: #ececef; color: #111827; }
@@ -1371,6 +1413,7 @@ button { font-family: inherit; }
 }
 
 .footer__social-link--ig svg { color: #e1306c; }
+.footer__social-link--fb svg { color: #1877f2; }
 .footer__social-link--yt svg { color: #ff3b30; }
 .footer__social-link--tiktok svg { color: #ffffff; }
 
