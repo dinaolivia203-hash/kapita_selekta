@@ -529,16 +529,30 @@
     newsRequest("/api/posts?limit=3")
       .then(function (data) {
         var items = data.items || [];
-        if (!items.length) return;
+
+        latestSection.hidden = false;
+
+        if (!items.length) {
+          latestGrid.textContent = "";
+          var empty = document.createElement("p");
+          empty.className = "news-loading";
+          empty.textContent = "Belum ada berita yang dipublikasikan.";
+          latestGrid.appendChild(empty);
+          return;
+        }
 
         fillNewsGrid(latestGrid, items);
-        latestSection.hidden = false;
 
         var head = latestSection.querySelector(".reveal");
         if (head) head.classList.add("is-visible");
       })
       .catch(function () {
-        /* Bagian kabar terbaru disembunyikan jika API belum tersedia. */
+        latestSection.hidden = false;
+        latestGrid.textContent = "";
+        var message = document.createElement("p");
+        message.className = "news-loading";
+        message.textContent = "Berita belum dapat dimuat.";
+        latestGrid.appendChild(message);
       });
   }
 
