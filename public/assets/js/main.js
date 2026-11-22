@@ -63,6 +63,11 @@
 
   watchReveals(document);
 
+  /* Konten berita/akademik dirender ulang saat data berubah (mis. dari tab admin) */
+  document.addEventListener("contentrendered", function () {
+    watchReveals(document);
+  });
+
   /* ---------------------------------------------------------------------
      3. Slider foto hero
      --------------------------------------------------------------------- */
@@ -194,11 +199,14 @@
   }
 
   /* ---------------------------------------------------------------------
-     4. Navigasi tab (Beranda, Profil, Jurusan, ...)
+     4. Navigasi tab (Beranda, Profil, Akademik, ...)
      --------------------------------------------------------------------- */
   var panels = Array.prototype.slice.call(document.querySelectorAll(".tab-panel"));
   var panelIds = panels.map(function (panel) { return panel.id; });
-  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav__link"));
+  var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav__link[href^='#']"));
+  var navGroups = Array.prototype.slice.call(document.querySelectorAll(".nav__group"));
+  var menuLinks = Array.prototype.slice.call(document.querySelectorAll(".nav__menu-link"));
+  var hoverMenu = window.matchMedia("(hover: hover) and (min-width: 1081px)");
 
   function activePanelId() {
     var id = (window.location.hash || "").replace(/^#/, "");
@@ -215,7 +223,76 @@
         link.removeAttribute("aria-current");
       }
     });
+
+    menuLinks.forEach(function (link) {
+      var active = link.getAttribute("href") === "#" + id;
+      link.classList.toggle("is-active", active);
+      if (active) {
+        link.setAttribute("aria-current", "page");
+      } else {
+        link.removeAttribute("aria-current");
+      }
+    });
+
+    navGroups.forEach(function (group) {
+      var toggle = group.querySelector(".nav__toggle");
+      if (!toggle) return;
+      toggle.classList.toggle("is-active", !!group.querySelector(".nav__menu-link.is-active"));
+    });
   }
+
+  /* Dropdown Akademik */
+  function setMenuOpen(group, open) {
+    var toggle = group.querySelector(".nav__toggle");
+    var menu = group.querySelector(".nav__menu");
+    if (!toggle || !menu) return;
+    toggle.setAttribute("aria-expanded", String(open));
+    menu.classList.toggle("is-open", open);
+  }
+
+  function closeMenus(except) {
+    navGroups.forEach(function (group) {
+      if (group !== except) setMenuOpen(group, false);
+    });
+  }
+
+  navGroups.forEach(function (group) {
+    var toggle = group.querySelector(".nav__toggle");
+    if (!toggle) return;
+
+    toggle.addEventListener("click", function () {
+      var open = toggle.getAttribute("aria-expanded") === "true";
+      closeMenus(group);
+      setMenuOpen(group, !open);
+    });
+
+    group.addEventListener("mouseenter", function () {
+      if (!hoverMenu.matches) return;
+      closeMenus(group);
+      setMenuOpen(group, true);
+    });
+
+    group.addEventListener("mouseleave", function () {
+      if (!hoverMenu.matches) return;
+      setMenuOpen(group, false);
+    });
+  });
+
+  document.addEventListener("click", function (event) {
+    if (!event.target.closest(".nav__group")) closeMenus();
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key !== "Escape") return;
+    var openToggle = document.querySelector('.nav__toggle[aria-expanded="true"]');
+    if (!openToggle) return;
+    closeMenus();
+    openToggle.focus();
+  });
+
+  document.addEventListener("tabchange", function () {
+    closeMenus();
+  });
 
   function scrollToTop() {
     // "instant" mengabaikan scroll-behavior: smooth di CSS
