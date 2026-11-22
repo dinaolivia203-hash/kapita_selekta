@@ -915,7 +915,8 @@ button { font-family: inherit; }
 }
 
 .facility {
-  padding: 26px 24px;
+  padding: 0 0 24px;
+  overflow: hidden;
   border: 1px solid var(--line);
   border-radius: 20px;
   background: var(--white);
@@ -940,8 +941,33 @@ button { font-family: inherit; }
 
 .facility__icon svg { width: 22px; height: 22px; }
 
+.facility__media {
+  margin: 0;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: var(--sky-100);
+}
+
+.facility__media img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  transition: transform .55s ease;
+}
+
+.facility:hover .facility__media img { transform: scale(1.05); }
+
+.facility__img--jahit { object-position: center 42%; }
+.facility__img--lapangan-top { object-position: center 24%; }
+.facility__img--lapangan-bottom { object-position: center 58%; }
+.facility__img--koridor { object-position: center 40%; }
+
+.facility h3,
+.facility p { padding-inline: 22px; }
+
 .facility h3 {
-  margin-top: 16px;
+  margin-top: 18px;
   font-size: 15.5px;
   letter-spacing: -.01em;
 }
