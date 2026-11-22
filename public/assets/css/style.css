@@ -989,6 +989,12 @@ button { font-family: inherit; }
   transition: transform .55s ease;
 }
 
+.facility__media--split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+}
+
 .facility:hover .facility__media img { transform: scale(1.05); }
 
 .facility__img--jahit { object-position: center 42%; }
