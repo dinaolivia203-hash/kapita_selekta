@@ -403,7 +403,7 @@ button { font-family: inherit; }
 .hero__foot-inner {
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   padding-block: 12px 14px;
 }
 
@@ -430,11 +430,20 @@ button { font-family: inherit; }
 }
 
 .hero__controls {
+  position: relative;
   display: flex;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: center;
   gap: 18px;
   width: 100%;
+  min-height: 40px;
+}
+
+.hero__controls .arrows {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
 .dots { display: flex; align-items: center; gap: 2px; }
@@ -1466,8 +1475,8 @@ button { font-family: inherit; }
   .footer__grid { grid-template-columns: 1fr 1fr; gap: 32px; }
   .footer__brand { grid-column: 1 / -1; }
   .footer__col:last-child { grid-column: auto; }
-  .hero__foot-inner { grid-template-columns: 1fr; gap: 10px; }
-  .hero__controls { justify-content: space-between; }
+  .hero__foot-inner { gap: 10px; }
+  .hero__controls { justify-content: center; }
   .hero__caption-text { white-space: normal; }
 }
 
