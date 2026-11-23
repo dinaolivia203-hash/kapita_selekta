@@ -206,7 +206,7 @@
   var navLinks = Array.prototype.slice.call(document.querySelectorAll(".nav__link[href^='#']"));
   var navGroups = Array.prototype.slice.call(document.querySelectorAll(".nav__group"));
   var menuLinks = Array.prototype.slice.call(document.querySelectorAll(".nav__menu-link"));
-  var hoverMenu = window.matchMedia("(hover: hover) and (min-width: 1081px)");
+  var hoverMenu = window.matchMedia("(hover: hover)");
 
   function activePanelId() {
     var id = (window.location.hash || "").replace(/^#/, "");
@@ -259,6 +259,7 @@
   navGroups.forEach(function (group) {
     var toggle = group.querySelector(".nav__toggle");
     if (!toggle) return;
+    var closeTimer = null;
 
     toggle.addEventListener("click", function () {
       var open = toggle.getAttribute("aria-expanded") === "true";
@@ -268,13 +269,21 @@
 
     group.addEventListener("mouseenter", function () {
       if (!hoverMenu.matches) return;
+      if (closeTimer) {
+        window.clearTimeout(closeTimer);
+        closeTimer = null;
+      }
       closeMenus(group);
       setMenuOpen(group, true);
     });
 
     group.addEventListener("mouseleave", function () {
       if (!hoverMenu.matches) return;
-      setMenuOpen(group, false);
+      if (closeTimer) window.clearTimeout(closeTimer);
+      closeTimer = window.setTimeout(function () {
+        setMenuOpen(group, false);
+        closeTimer = null;
+      }, 180);
     });
   });
 
