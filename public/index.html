@@ -35,9 +35,18 @@
         <ul class="nav__list">
           <li><a class="nav__link is-active" href="#beranda" aria-current="page">Beranda</a></li>
           <li><a class="nav__link" href="#profil">Profil</a></li>
-          <li><a class="nav__link" href="#jurusan">Jurusan</a></li>
+          <li class="nav__group">
+            <button class="nav__link nav__toggle" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="akademikMenu">
+              Akademik
+              <svg class="nav__chevron" viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <ul class="nav__menu" id="akademikMenu">
+              <li><a class="nav__menu-link" href="#kalender">Kalender Akademik</a></li>
+              <li><a class="nav__menu-link" href="#jurusan">Jurusan</a></li>
+              <li><a class="nav__menu-link" href="#prestasi">Prestasi</a></li>
+            </ul>
+          </li>
           <li><a class="nav__link" href="#fasilitas">Fasilitas</a></li>
-          <li><a class="nav__link" href="#galeri">Galeri</a></li>
           <li><a class="nav__link" href="#berita">Berita</a></li>
           <li><a class="nav__link" href="#kontak">Kontak</a></li>
         </ul>
@@ -364,6 +373,79 @@
       </section>
     </div>
 
+    <!-- ================= TAB: KALENDER AKADEMIK ================= -->
+    <div class="tab-panel" id="kalender" hidden>
+      <section class="section section--tint">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Akademik</p>
+            <h2>Kalender akademik 2026/2027</h2>
+            <p class="section__lead">Jadwal kegiatan belajar, penilaian, dan libur sekolah pada tahun ajaran pertama SMK Bintang Nusantara 2.</p>
+          </header>
+
+          <ol class="calendar">
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2026-07-13"><strong>13</strong><span>Juli 2026</span></time>
+              <div class="calendar__body"><h3>Awal tahun ajaran 2026/2027</h3><p>Hari pertama kegiatan sekolah dan penyambutan siswa kelas 10.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2026-07-14"><strong>14–18</strong><span>Juli 2026</span></time>
+              <div class="calendar__body"><h3>Masa Pengenalan Lingkungan Sekolah (MPLS)</h3><p>Pengenalan lingkungan, guru, tata tertib, dan program jurusan.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2026-07-20"><strong>20</strong><span>Juli 2026</span></time>
+              <div class="calendar__body"><h3>Hari pertama pembelajaran</h3><p>Kegiatan belajar mengajar dimulai sesuai jadwal masing-masing jurusan.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2026-08-17"><strong>17</strong><span>Agustus 2026</span></time>
+              <div class="calendar__body"><h3>Libur HUT Kemerdekaan RI</h3><p>Kegiatan belajar diliburkan. Siswa mengikuti upacara di lingkungan masing-masing.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2026-09-21"><strong>21–26</strong><span>September 2026</span></time>
+              <div class="calendar__body"><h3>Penilaian Tengah Semester Ganjil</h3><p>Penilaian tengah semester untuk mata pelajaran umum dan produktif.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2026-12-07"><strong>7–12</strong><span>Desember 2026</span></time>
+              <div class="calendar__body"><h3>Penilaian Akhir Semester Ganjil</h3><p>Penilaian akhir semester sebelum pembagian rapor semester ganjil.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2026-12-19"><strong>19–31</strong><span>Desember 2026</span></time>
+              <div class="calendar__body"><h3>Libur semester ganjil</h3><p>Libur akhir semester. Kegiatan belajar kembali pada awal Januari 2027.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2027-01-04"><strong>4</strong><span>Januari 2027</span></time>
+              <div class="calendar__body"><h3>Awal semester genap</h3><p>Kegiatan belajar semester genap dimulai untuk seluruh siswa kelas 10.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2027-03-08"><strong>8–13</strong><span>Maret 2027</span></time>
+              <div class="calendar__body"><h3>Penilaian Tengah Semester Genap</h3><p>Penilaian tengah semester untuk seluruh mata pelajaran.</p></div>
+            </li>
+            <li class="calendar__item reveal">
+              <time class="calendar__date" datetime="2027-06-14"><strong>14–19</strong><span>Juni 2027</span></time>
+              <div class="calendar__body"><h3>Penilaian Akhir Tahun &amp; kenaikan kelas</h3><p>Penilaian akhir semester genap dan proses kenaikan kelas.</p></div>
+            </li>
+          </ol>
+        </div>
+      </section>
+    </div>
+
+    <!-- ================= TAB: PRESTASI ================= -->
+    <div class="tab-panel" id="prestasi" hidden>
+      <section class="section">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Prestasi</p>
+            <h2>Prestasi siswa &amp; sekolah</h2>
+            <p class="section__lead">Catatan pencapaian siswa dan sekolah dalam lomba, kegiatan, serta program pengembangan kompetensi.</p>
+          </header>
+
+          <div class="news-grid" data-prestasi-grid aria-live="polite">
+            <p class="news-loading">Memuat prestasi…</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
     <!-- ================= TAB: FASILITAS ================= -->
     <div class="tab-panel" id="fasilitas" hidden>
       <section class="section">
@@ -444,8 +526,39 @@
       </section>
     </div>
 
-    <!-- ================= TAB: GALERI ================= -->
-    <div class="tab-panel" id="galeri" hidden>
+    <!-- ================= TAB: BERITA ================= -->
+    <div class="tab-panel" id="berita" hidden>
+      <section class="section">
+        <div class="container">
+          <header class="section__head reveal">
+            <p class="eyebrow">Kabar Sekolah</p>
+            <h2>Berita, prestasi &amp; kegiatan</h2>
+            <p class="section__lead">Kabar terbaru dari SMK Bintang Nusantara 2 — kegiatan belajar, praktik jurusan, sampai prestasi siswa.</p>
+          </header>
+
+          <div class="chips" role="group" aria-label="Saring berita berdasarkan kategori" data-news-filters>
+            <button class="chip is-active" type="button" data-category="" aria-pressed="true">Semua</button>
+            <button class="chip" type="button" data-category="berita" aria-pressed="false">Berita</button>
+            <button class="chip" type="button" data-category="prestasi" aria-pressed="false">Prestasi</button>
+            <button class="chip" type="button" data-category="kegiatan" aria-pressed="false">Kegiatan</button>
+          </div>
+
+          <div class="news-grid" data-news-grid aria-live="polite">
+            <p class="news-loading">Memuat berita…</p>
+          </div>
+
+          <div class="news-empty" data-news-empty hidden>
+            <strong>Belum ada kabar yang dipublikasikan.</strong>
+            <p>Berita, prestasi, dan kegiatan sekolah akan tampil di sini setelah ditambahkan oleh admin.</p>
+          </div>
+
+          <p class="news-more" data-news-more hidden>
+            <a class="link" href="/berita">Lihat semua berita <span aria-hidden="true">→</span></a>
+          </p>
+        </div>
+      </section>
+
+      <!-- Galeri (digabung dengan Berita) -->
       <section class="section section--tint">
         <div class="container">
           <header class="section__head reveal">
@@ -504,39 +617,6 @@
               <figcaption>Siswa kelas 10</figcaption>
             </figure>
           </div>
-        </div>
-      </section>
-    </div>
-
-    <!-- ================= TAB: BERITA ================= -->
-    <div class="tab-panel" id="berita" hidden>
-      <section class="section">
-        <div class="container">
-          <header class="section__head reveal">
-            <p class="eyebrow">Kabar Sekolah</p>
-            <h2>Berita, prestasi &amp; kegiatan</h2>
-            <p class="section__lead">Kabar terbaru dari SMK Bintang Nusantara 2 — kegiatan belajar, praktik jurusan, sampai prestasi siswa.</p>
-          </header>
-
-          <div class="chips" role="group" aria-label="Saring berita berdasarkan kategori" data-news-filters>
-            <button class="chip is-active" type="button" data-category="" aria-pressed="true">Semua</button>
-            <button class="chip" type="button" data-category="berita" aria-pressed="false">Berita</button>
-            <button class="chip" type="button" data-category="prestasi" aria-pressed="false">Prestasi</button>
-            <button class="chip" type="button" data-category="kegiatan" aria-pressed="false">Kegiatan</button>
-          </div>
-
-          <div class="news-grid" data-news-grid aria-live="polite">
-            <p class="news-loading">Memuat berita…</p>
-          </div>
-
-          <div class="news-empty" data-news-empty hidden>
-            <strong>Belum ada kabar yang dipublikasikan.</strong>
-            <p>Berita, prestasi, dan kegiatan sekolah akan tampil di sini setelah ditambahkan oleh admin.</p>
-          </div>
-
-          <p class="news-more" data-news-more hidden>
-            <a class="link" href="/berita">Lihat semua berita <span aria-hidden="true">→</span></a>
-          </p>
         </div>
       </section>
     </div>

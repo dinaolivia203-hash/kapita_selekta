@@ -557,7 +557,37 @@
   }
 
   /* ---------------------------------------------------------------------
-     6. Tahun berjalan di footer
+     6. Prestasi sekolah
+     --------------------------------------------------------------------- */
+  var prestasiGrid = document.querySelector("[data-prestasi-grid]");
+
+  if (prestasiGrid) {
+    newsRequest("/api/posts?kategori=prestasi&limit=12")
+      .then(function (data) {
+        var items = data.items || [];
+
+        if (!items.length) {
+          prestasiGrid.textContent = "";
+          var emptyPrestasi = document.createElement("p");
+          emptyPrestasi.className = "news-loading";
+          emptyPrestasi.textContent = "Belum ada prestasi yang dipublikasikan.";
+          prestasiGrid.appendChild(emptyPrestasi);
+          return;
+        }
+
+        fillNewsGrid(prestasiGrid, items);
+      })
+      .catch(function () {
+        prestasiGrid.textContent = "";
+        var messagePrestasi = document.createElement("p");
+        messagePrestasi.className = "news-loading";
+        messagePrestasi.textContent = "Prestasi belum dapat dimuat.";
+        prestasiGrid.appendChild(messagePrestasi);
+      });
+  }
+
+  /* ---------------------------------------------------------------------
+     7. Tahun berjalan di footer
      --------------------------------------------------------------------- */
   var yearEl = document.querySelector("[data-year]");
   if (yearEl) yearEl.textContent = String(new Date().getFullYear());
