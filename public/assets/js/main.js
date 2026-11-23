@@ -277,13 +277,17 @@
       setMenuOpen(group, true);
     });
 
-    group.addEventListener("mouseleave", function () {
+    group.addEventListener("mouseleave", function (event) {
       if (!hoverMenu.matches) return;
+      // Kalau kursor masih menuju elemen di dalam grup (mis. menu), jangan tutup.
+      if (event.relatedTarget && group.contains(event.relatedTarget)) return;
       if (closeTimer) window.clearTimeout(closeTimer);
       closeTimer = window.setTimeout(function () {
-        setMenuOpen(group, false);
         closeTimer = null;
-      }, 180);
+        // Cek lagi: jangan tutup kalau kursor berhenti di menu.
+        if (group.matches(":hover")) return;
+        setMenuOpen(group, false);
+      }, 220);
     });
   });
 
